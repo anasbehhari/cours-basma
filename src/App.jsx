@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import AuthentificationPage from "./components/authentification-page";
 import CreateProductPage from "./components/create-product-page";
+import EditProductPage from "./components/edit-product-page";
 import ProductsPage from "./components/products-page";
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -39,7 +40,11 @@ const App = () => {
           path="/products"
           element={
             isAuthenticated === true ? (
-              <ProductsPage products={products} setProducts={setProducts} />
+              <ProductsPage
+                products={products}
+                setProducts={setProducts}
+                setIsAuthenticated={setIsAuthenticated}
+              />
             ) : (
               <Navigate to="/" />
             )
@@ -50,6 +55,16 @@ const App = () => {
           element={
             isAuthenticated === true ? (
               <CreateProductPage setProducts={setProducts} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+        <Route
+          path="/products/edit/:id"
+          element={
+            isAuthenticated === true ? (
+              <EditProductPage products={products} setProducts={setProducts} />
             ) : (
               <Navigate to="/" />
             )

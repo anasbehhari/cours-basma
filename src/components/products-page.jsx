@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-function ProductsPage({ products, setProducts }) {
+function ProductsPage({ products, setProducts, setIsAuthenticated }) {
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
@@ -12,10 +12,19 @@ function ProductsPage({ products, setProducts }) {
   const handleCreateProductClick = () => {
     navigate("/products/create");
   };
+  const handleEdit = (id) => {
+    navigate(`/products/edit/${id}`);
+  };
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
   return (
     <>
       <button className="btn" type="button" onClick={handleCreateProductClick}>
         + Create new Product
+      </button>
+      <button className="btn" type="button" onClick={handleLogout}>
+        signOut
       </button>
       <h1>Products</h1>
       <table className="custom-table">
@@ -39,7 +48,12 @@ function ProductsPage({ products, setProducts }) {
                 <td>{product.price}</td>
                 <td>{product.date}</td>
                 <td className="action-buttons">
-                  <button className="btn">Edit</button>
+                  <button
+                    className="btn"
+                    onClick={() => handleEdit(product.id)}
+                  >
+                    Edit
+                  </button>
                   <button
                     className="btn"
                     onClick={() => handleDelete(product.id)}
