@@ -1,22 +1,7 @@
-import { useState } from "react";
+import { useNavigate } from "react-router";
 
-function ProductsPage() {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "Tide",
-      category: "Cleaning Product",
-      price: 200,
-      date: "2025-03-01",
-    },
-    {
-      id: 2,
-      name: "Colgate",
-      category: "Toothpaste",
-      price: 50,
-      date: "2025-03-02",
-    },
-  ]);
+function ProductsPage({ products, setProducts }) {
+  const navigate = useNavigate();
 
   const handleDelete = (id) => {
     setProducts((products) => {
@@ -24,36 +9,50 @@ function ProductsPage() {
       return filteredProducts;
     });
   };
+  const handleCreateProductClick = () => {
+    navigate("/products/create");
+  };
   return (
-    <table className="custom-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Date</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map((product, index) => {
-          return (
-            <tr key={product.id + index}>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>{product.category}</td>
-              <td>{product.price}</td>
-              <td>{product.date}</td>
-              <td className="action-buttons">
-                <button>Edit</button>
-                <button onClick={() => handleDelete(product.id)}>Delete</button>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <>
+      <button className="btn" type="button" onClick={handleCreateProductClick}>
+        + Create new Product
+      </button>
+      <h1>Products</h1>
+      <table className="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product, index) => {
+            return (
+              <tr key={product.id + index}>
+                <td>{product.id}</td>
+                <td>{product.name}</td>
+                <td>{product.category}</td>
+                <td>{product.price}</td>
+                <td>{product.date}</td>
+                <td className="action-buttons">
+                  <button className="btn">Edit</button>
+                  <button
+                    className="btn"
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </>
   );
 }
 

@@ -18,8 +18,14 @@ function AuthentificationPage({ setIsAuthenticated }) {
   return (
     <form
       onSubmit={handleSubmit}
-      style={{ display: "flex", flexDirection: "row", gap: "10px" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        width: "300px",
+      }}
     >
+      <h1>Login</h1>
       <input
         type="text"
         placeholder="username"
